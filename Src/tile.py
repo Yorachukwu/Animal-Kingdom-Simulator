@@ -1,5 +1,5 @@
 class Tile:
-    def __init__(self, row, col, max_animals = 2):
+    def __init__(self, row, col, max_animals=2):
         self.row = row
         self.col = col
         self.has_grass = False
