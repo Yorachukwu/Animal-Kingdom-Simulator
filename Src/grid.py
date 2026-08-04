@@ -5,10 +5,7 @@ import constants
 
 class Grid:
     def __init__(self):
-        self.tiles = [
-            [Tile(row, col) for col in range(constants.Columns)]
-            for row in range(constants.Rows)
-        ]
+        self.health = None
 
     def get_tile(self, row, col):
         if 0 <= row < constants.Rows and 0 <= col < constants.Columns:
