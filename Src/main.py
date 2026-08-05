@@ -20,7 +20,7 @@ def main():
                 x = tile.col * const.Tile_size
                 y = tile.row * const.Tile_size
                 rect = pygame.Rect(x, y, const.Tile_size, const.Tile_size)
-                pygame.draw.rect(surface, (60, 60, 60), rect, 1)
+                pygame.draw.rect(surface, (150, 150, 150), rect, 1)
 
     run = True
     while run:
@@ -31,11 +31,6 @@ def main():
         screen.fill((20, 20, 20))
 
         draw(tiles, screen)
-
-        for row in range(const.Rows):
-            rect = pygame.Rect(const.Columns * const.Tile_size, const.Rows * const.Tile_size, const.Tile_size, const.Tile_size)
-            pygame.draw.rect(screen, (60,60,60), rect, 1)
-
 
         pygame.display.flip()
         clock.tick(const.FPS)
