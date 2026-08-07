@@ -1,5 +1,5 @@
-Rows = 15
-Columns = 20
+Rows = 16
+Columns = 16
 Tile_size = 48
 
 UI_height = 60
@@ -15,9 +15,4 @@ goat_move_range = 1
 reproduction_cooldown = 250
 grass_grow_rate = 150
 
-male = "Male"
-female = "Female"
-idle = "Idle"
-walk = "Walk"
-eat = "Eat"
-die = "Die"
+

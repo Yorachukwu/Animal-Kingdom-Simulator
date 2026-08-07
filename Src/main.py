@@ -1,33 +1,37 @@
 import pygame
 from tile import Tile
+import grid
 import constants as const
-import animal
 import lion
 import goat
-import grass
 
+screen = pygame.display.set_mode((const.screen_width, const.screen_height))
 
 def main():
     pygame.init()
-    screen = pygame.display.set_mode((const.screen_width, const.screen_height))
     pygame.display.set_caption("Animal Kingdom")
     clock = pygame.time.Clock()
 
-    # Background
+    # Sprites
     background = pygame.image.load("grass_field.png")
+    animal1 = pygame.image.load("lion_spritesheet.png")
 
-    tiles = [
-        [Tile(row, col) for col in range(const.Columns)]
-        for row in range(const.Rows)
-    ]
+    # Getting the tiles
+    tiles = []
+    for row in range(const.Rows):
 
-    # Creating the lion sprite
-    lion_anim = lion.Lion(50, 50, 40, 40, (255, 255, 255))
-    lion_group = pygame.sprite.Group()
-    lion_group.add(lion_anim)
+        # adding each row and column to the grid for coordinates
+        grid.row_spaces.append(row)
+        grid.column_spaces.append(row)
+        row_list = []
+        for col in range(const.Columns):
+
+            row_list.append(Tile(row, col))
+        tiles.append(row_list)
+    print(grid.row_spaces, grid.column_spaces)
 
     def draw_BG(self, surface):
-        screen.blit(background, (0,0))
+        screen.blit(background, (0, 0))
         for row in tiles:
             for tile in row:
                 x = tile.col * const.Tile_size
@@ -36,7 +40,10 @@ def main():
                 pygame.draw.rect(surface, (150, 150, 150), rect, 1)
 
     def draw_animals():
-        lion_group.draw(screen)
+        lion_anim = lion.Lion(1,1,const.Rows*const.Tile_size, const.Columns*const.Tile_size, (150, 150, 150))
+
+        lion_anim.idle()
+        lion_anim.update()
 
     run = True
     while run:
@@ -52,8 +59,6 @@ def main():
         pygame.display.flip()
         clock.tick(const.FPS)
     pygame.quit()
-
-
 
 if __name__ == '__main__':
     main()
