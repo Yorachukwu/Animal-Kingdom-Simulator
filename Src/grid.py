@@ -11,10 +11,11 @@ occupied_spaces = []
 initial_spawn_locations = []
 spawn_location_in_use = []
 
-# has_random_location1 = False
-# has_random_location2 = False
-# has_random_location3 = False
-# has_random_location4 = False
+all_positions = [[col * grid_space, row * grid_space]
+                 for col in range(constants.Columns)
+                 for row in range(constants.Rows)]
+
+random.shuffle(all_positions)
 
 def generate_positions():
     global random_location1, random_location2, random_location3, random_location4
@@ -43,3 +44,10 @@ def generate_positions():
     initial_spawn_locations.append(random_location4)
 
     print(occupied_spaces)
+
+# def get_free_positions():
+#     if not all_positions:
+#         return None
+#     position = all_positions.pop()
+#     occupied_spaces.append(position)
+#     return position

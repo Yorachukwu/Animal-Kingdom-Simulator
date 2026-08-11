@@ -15,6 +15,9 @@ class Animal:
         self.health = health
         self.speed = speed
         self.has_location = has_location
+        self.lion = None
+        self.goat = None
+
 
     def spawn_animal(self):
         health = 0
@@ -33,7 +36,7 @@ class Animal:
                     pass
                 else:
                     self.has_location = True
-                    lion = lion_script.Lion(1, 1, 50, 50).spawn_lion(spawn_location[0], spawn_location[1])
+                    self.lion = lion_script.Lion(1, 1, 50, 50, [spawn_location[0], spawn_location[1]]).spawn_lion(spawn_location[0], spawn_location[1])
                     grid.spawn_location_in_use.append([spawn_location[0], spawn_location[1]])
 
         # FOR THE GOAT
@@ -50,8 +53,12 @@ class Animal:
                     pass
                 else:
                     self.has_location = True
-                    goat = goat_script.Goat(1, 1, 50, 50).spawn_goat(spawn_location[0], spawn_location[1])
+                    self.goat = goat_script.Goat(1, 1, 50, 50, [spawn_location[0], spawn_location[1]]).spawn_goat(spawn_location[0], spawn_location[1])
                     grid.spawn_location_in_use.append([spawn_location[0], spawn_location[1]])
-
-        else:
-            pass
+    def move_animal(self):
+        if self.breed == "Lion":
+            self.lion.move()
+            self.lion.spawn_lion(self.lion.location[0], self.lion.location[1])
+        elif self.breed == "Goat":
+            self.goat.move()
+            self.goat.spawn_goat(self.goat.location[0], self.goat.location[1])

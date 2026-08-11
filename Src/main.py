@@ -38,24 +38,29 @@ def main():
                 pygame.draw.rect(surface, (150, 150, 150), rect, 1)
 
     animals = []
-
+    # grid.generate_positions()
     def draw_animals():
         for i in range(10):
-            grid.generate_positions()
+
             new_aniimal1 = animal.Animal(None, None, None, None)
             new_aniimal1.spawn_animal()
             animals.append(new_aniimal1)
 
+    screen.fill((20, 20, 20))
+    draw_BG(tiles, screen)
+    draw_animals()
+
     run = True
     while run:
+
+        # Checks for close button
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
 
-        screen.fill((20, 20, 20))
+        for i in animals:
 
-        draw_BG(tiles, screen)
-        draw_animals()
+            i.move_animal()
 
         pygame.display.flip()
         clock.tick(const.FPS)
