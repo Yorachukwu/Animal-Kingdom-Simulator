@@ -1,16 +1,16 @@
 import random
 import pygame.sprite
 import main
-import animal
-import grid
+import goat
 
 sex_list = ["male", "female"]
-lion = animal.Animal(5, 3, animal.Animal, random.choice(sex_list))
+# lion = animal.Animal(5, 3, goat.Goat(None, None, None, None), random.choice(sex_list))
 
 # Sprite
 original_lion_img = pygame.image.load("lion_spritesheet.png")
 lion_img = pygame.transform.scale(original_lion_img, (300, 300))
 animation_index = [5, 84, 163, 242, 321]
+
 
 class Lion(pygame.sprite.Sprite):
     def __init__(self, width, height, pos_x, pos_y):

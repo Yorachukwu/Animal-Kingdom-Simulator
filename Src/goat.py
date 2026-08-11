@@ -1,17 +1,16 @@
 import pygame.sprite
 import random
 import main
-import animal
-import grid
 import grass
 
 sex_list = ["male", "female"]
-goat = animal.Animal(2, 1, grass.Grass, random.choice(sex_list))
+# goat = animal.Animal(2, 1, grass.Grass, random.choice(sex_list))
 
 # Sprite
 original_goat_img = pygame.image.load("goat_spritesheet.png")
 goat_img = pygame.transform.scale(original_goat_img, (300, 300))
 animation_index = [5, 84, 163, 242, 321]
+
 
 class Goat(pygame.sprite.Sprite):
     def __init__(self, width, height, pos_x, pos_y):

@@ -2,12 +2,10 @@ import pygame
 from tile import Tile
 import grid
 import constants as const
-import lion
-import goat
-import random
 import animal
 
 screen = pygame.display.set_mode((const.screen_width, const.screen_height))
+
 
 def main():
     pygame.init()
@@ -28,7 +26,6 @@ def main():
         for col in range(const.Columns):
             row_list.append(Tile(row, col))
         tiles.append(row_list)
-    print(grid.row_spaces, grid.column_spaces)
 
     def draw_BG(self, surface):
         screen.blit(background, (0, 0))
@@ -40,25 +37,14 @@ def main():
                 rect = pygame.Rect(x, y, const.Tile_size, const.Tile_size)
                 pygame.draw.rect(surface, (150, 150, 150), rect, 1)
 
-    def draw_animals():
+    animals = []
 
-        # # Lion Handling
-        # lion_anim = lion.Lion(1, 1, 50, 50)
-        # lion_anim.spawn_lion(random_location1[0], random_location1[1])
-        # lion_anim.idle()
-        #
-        # # Goat handling
-        # goat_anim = goat.Goat(1, 1, 50, 50)
-        # goat_anim.spawn_goat(random_location2[0], random_location2[1])
-        # goat_anim.idle()
-        animal1 = animal.Animal(None, None, None, None)
-        animal1.spawn_animal()
-        animal2 = animal.Animal(None, None, None, None)
-        animal2.spawn_animal()
-        animal3 = animal.Animal(None, None, None, None)
-        animal3.spawn_animal()
-        animal4 = animal.Animal(None, None, None, None)
-        animal4.spawn_animal()
+    def draw_animals():
+        for i in range(10):
+            grid.generate_positions()
+            new_aniimal1 = animal.Animal(None, None, None, None)
+            new_aniimal1.spawn_animal()
+            animals.append(new_aniimal1)
 
     run = True
     while run:
@@ -74,6 +60,7 @@ def main():
         pygame.display.flip()
         clock.tick(const.FPS)
     pygame.quit()
+
 
 if __name__ == '__main__':
     main()
