@@ -57,7 +57,8 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
-
+        screen.fill((20, 20, 20))
+        draw_BG(tiles, screen)
         for i in animals:
 
             i.move_animal()
