@@ -5,9 +5,8 @@ import goat as goat_script
 
 has_location = False
 
-class Animal:
-    is_alive = True
 
+class Animal:
     def __init__(self, health, speed, food, sex):
         breed_list = ["Lion", "Goat"]
         self. breed = random.choice(breed_list)
@@ -17,7 +16,7 @@ class Animal:
         self.has_location = has_location
         self.lion = None
         self.goat = None
-
+        self.is_alive = True
 
     def spawn_animal(self):
         health = 0
@@ -37,6 +36,7 @@ class Animal:
                 else:
                     self.has_location = True
                     self.lion = lion_script.Lion(1, 1, 50, 50, [spawn_location[0], spawn_location[1]]).spawn_lion(spawn_location[0], spawn_location[1])
+                    self.lion.owner = self
                     grid.spawn_location_in_use.append([spawn_location[0], spawn_location[1]])
 
         # FOR THE GOAT
@@ -54,8 +54,13 @@ class Animal:
                 else:
                     self.has_location = True
                     self.goat = goat_script.Goat(1, 1, 50, 50, [spawn_location[0], spawn_location[1]]).spawn_goat(spawn_location[0], spawn_location[1])
+                    self.goat.owner = self
                     grid.spawn_location_in_use.append([spawn_location[0], spawn_location[1]])
+
     def move_animal(self):
+        if not self.is_alive:
+            return
+
         if self.breed == "Lion":
             self.lion.move()
             self.lion.spawn_lion(self.lion.location[0], self.lion.location[1])

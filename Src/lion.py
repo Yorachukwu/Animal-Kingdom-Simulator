@@ -24,7 +24,9 @@ class Lion(pygame.sprite.Sprite):
 
     def spawn_lion(self, pos_x, pos_y):
         self.location = [pos_x, pos_y]
+        self.rect = pygame.Rect(pos_x, pos_y, 70, 85)
         main.screen.blit(lion_img, self.location, (self.current_sprite, animation_index[2]-10, 70, 85))
+        pygame.draw.rect(main.screen, (255, 0, 0), self.rect, 2)
         return self
 
     def idle(self):
@@ -35,13 +37,33 @@ class Lion(pygame.sprite.Sprite):
     def move(self):
         move_direction = ["up", "down", "left", "right", "none"]
         if random.choice(move_direction) == "up":
-            self.location[1] += constants.Tile_size
+            if self.location[1] < constants.Rows * constants.Tile_size:
+                if self.location in grid.occupied_spaces:
+                    grid.occupied_spaces.remove(self.location)
+                    self.location[1] += constants.Tile_size
+                    grid.occupied_spaces.append(self.location)
+
         elif random.choice(move_direction) == "down":
-            self.location[1] -= constants.Tile_size
+            if self.location[1] > 0:
+                if self.location in grid.occupied_spaces:
+                    grid.occupied_spaces.remove(self.location)
+                    self.location[1] -= constants.Tile_size
+                    grid.occupied_spaces.append(self.location)
+
         elif random.choice(move_direction) == "left":
-            self.location[0] -= constants.Tile_size
+            if self.location[0] > 0:
+                if self.location in grid.occupied_spaces:
+                    grid.occupied_spaces.remove(self.location)
+                    self.location[0] -= constants.Tile_size
+                    grid.occupied_spaces.append(self.location)
+
         elif random.choice(move_direction) == "right":
-            self.location[0] += constants.Tile_size
+            if self.location[0] < constants.Columns * constants.Tile_size:
+                if self.location in grid.occupied_spaces:
+                    grid.occupied_spaces.remove(self.location)
+                    self.location[0] += constants.Tile_size
+                    grid.occupied_spaces.append(self.location)
+
         elif random.choice(move_direction) == "none":
             pass
         return self

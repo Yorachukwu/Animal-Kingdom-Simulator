@@ -3,6 +3,7 @@ from tile import Tile
 import grid
 import constants as const
 import animal
+import simulation
 
 screen = pygame.display.set_mode((const.screen_width, const.screen_height))
 
@@ -38,7 +39,7 @@ def main():
                 pygame.draw.rect(surface, (150, 150, 150), rect, 1)
 
     animals = []
-    # grid.generate_positions()
+    
     def draw_animals():
         for i in range(10):
 
@@ -62,6 +63,17 @@ def main():
         for i in animals:
 
             i.move_animal()
+
+        # CHECKING ANIMAL COLLISIONS
+        for sprite_a, sprite_b in simulation.check_collisions(animals):
+            animal_a = sprite_a.owner
+            animal_b = sprite_b.owner
+
+            if animal_a.breed == "Lion" and animal_b.breed == "Goat":
+                # lion eats goat
+                animal_b.is_alive = False
+            elif animal_b.breed == "Lion" and animal_a.breed == "Goat":
+                animal_a.is_alive = False
 
         pygame.display.flip()
         clock.tick(const.FPS)

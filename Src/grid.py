@@ -44,10 +44,3 @@ def generate_positions():
     initial_spawn_locations.append(random_location4)
 
     print(occupied_spaces)
-
-# def get_free_positions():
-#     if not all_positions:
-#         return None
-#     position = all_positions.pop()
-#     occupied_spaces.append(position)
-#     return position

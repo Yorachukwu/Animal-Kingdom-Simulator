@@ -14,5 +14,3 @@ goat_move_range = 1
 
 reproduction_cooldown = 250
 grass_grow_rate = 150
-
-
