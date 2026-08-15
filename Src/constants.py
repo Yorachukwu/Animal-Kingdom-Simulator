@@ -1,11 +1,11 @@
-Rows = 16
-Columns = 16
+Rows = 20
+Columns = 20
 Tile_size = 48
 
 UI_height = 60
 screen_width = Columns * Tile_size
 screen_height = Rows * Tile_size+UI_height
-FPS = 2
+FPS = 30
 
 lion_life_timer = 400
 goat_life_timer = 300

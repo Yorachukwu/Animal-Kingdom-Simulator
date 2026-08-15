@@ -39,9 +39,10 @@ def main():
                 pygame.draw.rect(surface, (150, 150, 150), rect, 1)
 
     animals = []
-    
+
     def draw_animals():
-        for i in range(10):
+        # NUMBER OF ANIMALS TO SPAWN
+        for i in range(15):
 
             new_aniimal1 = animal.Animal(None, None, None, None)
             new_aniimal1.spawn_animal()
@@ -64,16 +65,16 @@ def main():
 
             i.move_animal()
 
-        # CHECKING ANIMAL COLLISIONS
+        # CHECKING ANIMAL COLLISIONS AND GETTING INFORMATION
         for sprite_a, sprite_b in simulation.check_collisions(animals):
             animal_a = sprite_a.owner
             animal_b = sprite_b.owner
 
             if animal_a.breed == "Lion" and animal_b.breed == "Goat":
                 # lion eats goat
-                animal_b.is_alive = False
+                animal_b.kill()
             elif animal_b.breed == "Lion" and animal_a.breed == "Goat":
-                animal_a.is_alive = False
+                animal_a.kill()
 
         pygame.display.flip()
         clock.tick(const.FPS)
@@ -82,3 +83,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
