@@ -1,6 +1,6 @@
-Rows = 20
-Columns = 20
-Tile_size = 48
+Rows = 30
+Columns = 30
+Tile_size = 30
 
 UI_height = 60
 screen_width = Columns * Tile_size

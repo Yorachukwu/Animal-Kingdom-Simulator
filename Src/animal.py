@@ -8,9 +8,10 @@ has_location = False
 
 class Animal:
     def __init__(self, health, speed, food, sex):
-        breed_list = ["Lion", "Goat"]
         sex_list = ["Male", "Female"]
-        self. breed = random.choice(breed_list)
+        breed_list = ["Lion", "Goat"]
+        breed_weights = [45, 55]  # Lion 30% chance, Goat 70% chance
+        self.breed = random.choices(breed_list, weights=breed_weights, k=1)[0]
         self.sex = random.choice(sex_list)
         self.food = None
         self.health = health
@@ -27,8 +28,8 @@ class Animal:
         if self.breed == "Lion":
             self.speed = 2
             self.food = "Goat"
-            health = 5
-            speed = 3
+            self.health = 5
+            self.speed = 2
             grid.generate_positions()
 
             while not self.has_location:
@@ -38,16 +39,16 @@ class Animal:
                 else:
                     self.has_location = True
                     self.lion = lion_script.Lion(1, 1, 50, 50, [spawn_location[0], spawn_location[1]], self.sex, self.speed)
-                    self.lion.spawn_lion(spawn_location[0], spawn_location[1])
                     self.lion.owner = self
+                    self.lion.spawn_lion(spawn_location[0], spawn_location[1])
                     grid.spawn_location_in_use.append([spawn_location[0], spawn_location[1]])
 
         # FOR THE GOAT
         elif self.breed == "Goat":
             self.speed = 1
             self.food = "Grass"
-            health = 3
-            speed = 1
+            self.health = 3
+            self.speed = 1
             grid.generate_positions()
 
             while not self.has_location:
@@ -57,8 +58,8 @@ class Animal:
                 else:
                     self.has_location = True
                     self.goat = goat_script.Goat(1, 1, 50, 50, [spawn_location[0], spawn_location[1]], self.sex, self.speed)
-                    self.goat.spawn_goat(spawn_location[0], spawn_location[1])
                     self.goat.owner = self
+                    self.goat.spawn_goat(spawn_location[0], spawn_location[1])
                     grid.spawn_location_in_use.append([spawn_location[0], spawn_location[1]])
 
     def move_animal(self):

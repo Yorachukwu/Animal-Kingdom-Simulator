@@ -4,6 +4,7 @@ import main
 import goat
 import grid
 import constants
+import ui
 
 # Sprite
 original_lion_img = pygame.image.load("lion_spritesheet.png")
@@ -22,6 +23,7 @@ class Lion(pygame.sprite.Sprite):
         self.target_location = list(location)
         self.sex = sex
         self.speed = speed
+        self.owner = None
 
     def spawn_lion(self, pos_x, pos_y):
         self.location = [pos_x, pos_y]
@@ -33,6 +35,10 @@ class Lion(pygame.sprite.Sprite):
 
         main.screen.blit(tinted_img, self.location, (self.current_sprite, animation_index[2]-10, 70, 85))
         pygame.draw.rect(main.screen, (255, 0, 0), self.rect, 2)
+
+        if self.owner is not None:
+            ui.draw_health(main.screen, self.location[0], self.location[1] - 16, self.owner.health)
+
         return self
 
     def idle(self):

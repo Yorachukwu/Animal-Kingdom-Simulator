@@ -4,6 +4,8 @@ import main
 import grass
 import grid
 import constants
+import ui
+
 
 # Sprite
 original_goat_img = pygame.image.load("goat_spritesheet.png")
@@ -22,6 +24,7 @@ class Goat(pygame.sprite.Sprite):
         self.target_location = list(location)
         self.sex = sex
         self.speed = speed
+        self.owner = None
 
     def spawn_goat(self, pos_x, pos_y):
         self.location = [pos_x, pos_y]
@@ -34,6 +37,10 @@ class Goat(pygame.sprite.Sprite):
         main.screen.blit(tinted_img, self.location, (self.current_sprite, animation_index[2] - 10, 70, 85))
         pygame.draw.rect(main.screen, (255, 0, 0), self.rect, 2)
         grid.occupied_spaces.append(self.location)
+
+        if self.owner is not None:
+            ui.draw_health(main.screen, self.location[0], self.location[1] - 16, self.owner.health)
+
         return self
 
     def idle(self):
@@ -56,17 +63,16 @@ class Goat(pygame.sprite.Sprite):
             elif move_direction == "right" and self.location[0] < constants.Columns * constants.Tile_size:
                 new_target[0] += constants.Tile_size
             else:
-                return self  # "none", or blocked by the edge — stay put this frame
+                return self
 
             if new_target in grid.occupied_spaces:
-                return self  # someone's already headed there or standing there
+                return self
 
             if self.location in grid.occupied_spaces:
                 grid.occupied_spaces.remove(self.location)
             grid.occupied_spaces.append(new_target)
             self.target_location = new_target
 
-        # Step a few pixels closer to the target, every frame, until we arrive
         dx = self.target_location[0] - self.location[0]
         dy = self.target_location[1] - self.location[1]
 
