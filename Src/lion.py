@@ -58,7 +58,7 @@ class Lion(pygame.sprite.Sprite):
 
         main.screen.blit(tinted_img, self.location,
                          (frame_x, frame_y, constants.Lion_frame_size, constants.Lion_frame_size))
-        pygame.draw.rect(main.screen, (255, 0, 0), self.rect, 2)
+        pygame.draw.rect(main.screen, (0, 0, 0), self.rect, 2)
 
         if self.owner is not None:
             ui.draw_health(main.screen, self.location[0], self.location[1] - 16, self.owner.health)

@@ -6,7 +6,7 @@ Number_of_animals = 20
 UI_height = 60
 screen_width = Columns * Tile_size
 screen_height = Rows * Tile_size+UI_height
-FPS = 30
+FPS = 25
 
 lion_life_timer = 400
 goat_life_timer = 300

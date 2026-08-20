@@ -55,13 +55,13 @@ class Goat(pygame.sprite.Sprite):
         frame_x = self.animation_frame * constants.Goat_frame_size
         frame_y = row * constants.Goat_frame_size
 
-        tint = (150, 255, 150) if self.sex == "Male" else (255, 150, 150)
+        tint = (150, 255, 150, 128) if self.sex == "Male" else (255, 150, 150, 128)
         tinted_img = goat_img.copy()
         tinted_img.fill(tint, special_flags=pygame.BLEND_RGB_MULT)
 
-        main.screen.blit(tinted_img, self.location,
+        main.screen.blit(goat_img, self.location,
                          (frame_x, frame_y, constants.Goat_frame_size, constants.Goat_frame_size))
-        pygame.draw.rect(main.screen, (255, 0, 0), self.rect, 2)
+        pygame.draw.rect(main.screen, (255, 0, 0, 0), self.rect, 2)
 
         if self.owner is not None:
             ui.draw_health(main.screen, self.location[0], self.location[1] - 16, self.owner.health)
