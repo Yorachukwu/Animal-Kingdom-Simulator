@@ -10,7 +10,7 @@ class Animal:
     def __init__(self, health, speed, food, sex):
         sex_list = ["Male", "Female"]
         breed_list = ["Lion", "Goat"]
-        breed_weights = [45, 55]  # Lion 30% chance, Goat 70% chance
+        breed_weights = [40, 60]  
         self.breed = random.choices(breed_list, weights=breed_weights, k=1)[0]
         self.sex = random.choice(sex_list)
         self.food = None
@@ -49,8 +49,8 @@ class Animal:
         elif self.breed == "Goat":
             self.speed = 1
             self.food = "Grass"
-            self.health = 3
-            self.max_health = 3
+            self.health = 1
+            self.max_health = 1
             self.speed = 1
             grid.generate_positions()
 

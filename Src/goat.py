@@ -8,11 +8,8 @@ import ui
 
 
 # Sprite
-original_goat_img = pygame.image.load("goat_spritesheet.png")
 goat_img = pygame.image.load(r"C:\Users\VICTUS\PycharmProjects\Animal Kingdom Simulator\Assets\Sprites\goat.png")
-# goat_img = pygame.transform.scale(original_goat_img, (300, 300))
 animation_index = [5, 84, 163, 242]
-
 
 
 class Goat(pygame.sprite.Sprite):
@@ -36,7 +33,7 @@ class Goat(pygame.sprite.Sprite):
 
     def spawn_goat(self, pos_x, pos_y):
         self.location = [pos_x, pos_y]
-        self.rect = pygame.Rect(pos_x, pos_y + 10, 65, 65)
+        self.rect = pygame.Rect(pos_x-5, pos_y, 65, 65)
 
         # advance the walk-cycle frame at a fixed pace, independent of FPS spikes
         self.animation_timer += 1
@@ -61,7 +58,10 @@ class Goat(pygame.sprite.Sprite):
 
         main.screen.blit(goat_img, self.location,
                          (frame_x, frame_y, constants.Goat_frame_size, constants.Goat_frame_size))
-        pygame.draw.rect(main.screen, (255, 0, 0, 0), self.rect, 2)
+
+        # color = (255, 192, 203)
+        # pygame.draw.rect(main.screen, color, self.rect, 2)
+        # pygame.draw.rect(main.screen, [255, 0, 0], [50, 50, 90, 180], 1)
 
         if self.owner is not None:
             ui.draw_health(main.screen, self.location[0], self.location[1] - 16, self.owner.health)

@@ -5,6 +5,7 @@ import constants as const
 import animal
 import grass
 import simulation
+import ui
 
 screen = pygame.display.set_mode((const.screen_width, const.screen_height))
 
@@ -15,7 +16,9 @@ def main():
     clock = pygame.time.Clock()
 
     # Sprites
-    background = pygame.image.load("grass_field.png")
+    background = pygame.image.load("grass.png")
+    # lion_img = pygame.transform.scale(original_lion_img, (300, 300))
+    background = pygame.transform.scale(background, (1100, 1000))
 
     # Getting the tiles
     tiles = []
@@ -37,7 +40,7 @@ def main():
                 x = tile.col * const.Tile_size
                 y = tile.row * const.Tile_size
                 rect = pygame.Rect(x, y, const.Tile_size, const.Tile_size)
-                pygame.draw.rect(surface, (150, 150, 150), rect, 1)
+                pygame.draw.rect(surface, (150, 150, 150, 0), rect, 1)
 
     animals = []
 
@@ -88,21 +91,25 @@ def main():
                 goat_animal = goat_sprite.owner
                 if goat_sprite.escape_timer <= 0:
                     lion_sprite.steps_since_meal = 0
+                    lion_sprite.owner.heal(1)
                     goat_animal.take_damage(1)
                     if goat_animal.is_alive:
                         goat_sprite.flee_from(lion_sprite.location)
 
+            # HANDLE REPRODUCTION BLOCK
             elif animal_a.breed == animal_b.breed and sprite_a.sex != sprite_b.sex:
                 if sprite_a.can_reproduce() and sprite_b.can_reproduce():
-                    nearby = grid.find_nearby_space(sprite_a.location)
-                    if nearby is not None:
-                        baby = animal.Animal(None, None, None, None)
-                        baby.breed = animal_a.breed
-                        baby.spawn_animal_at(nearby)
-                        animals.append(baby)
+                    current_population = sum(1 for a in animals if a.is_alive)
+                    if current_population < const.Max_number_animals:
+                        nearby = grid.find_nearby_space(sprite_a.location)
+                        if nearby is not None:
+                            baby = animal.Animal(None, None, None, None)
+                            baby.breed = animal_a.breed
+                            baby.spawn_animal_at(nearby)
+                            animals.append(baby)
 
-                        sprite_a.reproduction_timer = const.reproduction_cooldown
-                        sprite_b.reproduction_timer = const.reproduction_cooldown
+                            sprite_a.reproduction_timer = const.reproduction_cooldown
+                            sprite_b.reproduction_timer = const.reproduction_cooldown
 
         for a in animals:
             if not a.is_alive:
@@ -112,6 +119,13 @@ def main():
                 a.goat.tick_reproduction_timer()
             elif a.breed == "Lion" and a.lion is not None:
                 a.lion.tick_reproduction_timer()
+
+        lion_count = sum(1 for a in animals if a.breed == "Lion" and a.is_alive)
+        goat_count = sum(1 for a in animals if a.breed == "Goat" and a.is_alive)
+        ui.draw_animal_counts(screen, lion_count, goat_count, const.Rows * const.Tile_size)
+
+        pygame.display.flip()
+        clock.tick(const.FPS)
 
         pygame.display.flip()
         clock.tick(const.FPS)

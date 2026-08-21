@@ -7,8 +7,6 @@ import constants
 import ui
 
 # Sprite
-original_lion_img = pygame.image.load("lion_spritesheet.png")
-# lion_img = pygame.transform.scale(original_lion_img, (300, 300))
 lion_img = pygame.image.load(r"C:\Users\VICTUS\PycharmProjects\Animal Kingdom Simulator\Assets\Sprites\lion.png")
 
 animation_index = [5, 84, 163, 242, 321]
@@ -34,7 +32,7 @@ class Lion(pygame.sprite.Sprite):
 
     def spawn_lion(self, pos_x, pos_y):
         self.location = [pos_x, pos_y]
-        self.rect = pygame.Rect(pos_x, pos_y + 10, 65, 65)
+        self.rect = pygame.Rect(pos_x-5, pos_y, 65, 65)
 
         self.animation_timer += 1
         if self.animation_timer >= 6:
@@ -56,9 +54,13 @@ class Lion(pygame.sprite.Sprite):
         tinted_img = lion_img.copy()
         tinted_img.fill(tint, special_flags=pygame.BLEND_RGB_MULT)
 
-        main.screen.blit(tinted_img, self.location,
+        main.screen.blit(lion_img, self.location,
                          (frame_x, frame_y, constants.Lion_frame_size, constants.Lion_frame_size))
-        pygame.draw.rect(main.screen, (0, 0, 0), self.rect, 2)
+
+
+        # pygame.draw.rect(main.screen, (0, 0, 0), self.rect, 2)
+        # pygame.draw.rect(main.screen, [255, 0, 0], [pos_x-5, pos_y, 65, 65], 1)
+
 
         if self.owner is not None:
             ui.draw_health(main.screen, self.location[0], self.location[1] - 16, self.owner.health)
